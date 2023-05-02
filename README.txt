@@ -1,30 +1,17 @@
-Editorial by HTML5 UP
-html5up.net | @ajlkn
-Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+# Portfolio de Projetos
+Este repositório contém os códigos para hospedar o meu [Porfólio de projetos](https://luiseduardoesteves.github.io/portfolio_projetos/) em Ciência de dados! O conteúdo do site é:
+
+## Sobre mim
+Nesta seção, você encontrará uma breve descrição sobre mim, e minha trajetória da Engenharia Mecânica para a ciência de dados.
+
+## Experiência profissional
+Apresento aqui minha experiência profissional em diferentes cargos e empresas, juntamente com uma descrição das atividades que realizei em cada um deles. Dessa forma, você poderá entender melhor a minha trajetória profissional e as habilidades que adquiri ao longo do caminho.
+
+## Habilidades e tecnologias
+Nesta seção, você poderá conhecer em detalhes as linguagens de programação e as ferramentas que domino atualmente, o que inclui diversas tecnologias importantes em ciência de dados, como Python, R, SQL, entre outras.
+
+## Projetos em Ciência de Dados
+Nesta seção, apresento meus projetos em ciência de dados, cada um com uma breve descrição do contexto e dos objetivos do projeto, bem como das ferramentas utilizadas e do link para a página correspondente no Github. Entre os projetos, você encontrará exemplos de análise exploratória de dados, modelos de aprendizado de máquina, visualizações interativas, e muito mais.
 
 
-Say hello to Editorial, a blog/magazine-ish template built around a toggleable "locking"
-sidebar (scroll down to see what I mean) and an accordion-style menu. Not the usual landing
-page/portfolio affair you'd expect to see at HTML5 UP, but I figured for my 41st (!!!)
-template I'd change it up a little. Enjoy :)
-
-Demo images* courtesy of Unsplash, a radtastic collection of CC0 (public domain) images
-you can use for pretty much whatever.
-
-(* = not included)
-
-AJ
-aj@lkn.io | @ajlkn
-
-
-Credits:
-
-	Demo Images:
-		Unsplash (unsplash.com)
-
-	Icons:
-		Font Awesome (fontawesome.io)
-
-	Other:
-		jQuery (jquery.com)
-		Responsive Tools (github.com/ajlkn/responsive-tools)
+Além disso, gostaria de destacar que este site foi criado com base em um template HTML gratuito disponível no site [HTML5 UP](https://html5up.net/), o que me permitiu concentrar meus esforços no conteúdo e na personalização do portfólio em si.
