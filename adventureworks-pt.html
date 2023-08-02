@@ -1,0 +1,376 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+	<title>AdventureWorks</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+</head>
+
+<body class="is-preload">
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<div id="main">
+			<div class="inner">
+
+				<!-- Header -->
+				<header id="header">
+					<a href="index.html" class="logo"> ◀ Voltar ao portfolio</a>
+					<ul class="icons">
+						<li><a href="adventureworks-en.html" class="icon"><img src="images/usa.png" alt="en-us"
+									title="EN-US"></a></li>
+						<li><img src="images/br_select.png" alt="pt-br" title="PT-BR"></a></li>
+
+					</ul>
+				</header>
+				<!-- Content -->
+
+				<section>
+
+					<head>
+						<title>Dashboard AdventureWorks PowerBI</title>
+					</head>
+
+					<body>
+
+						<h1>Dashboard AdventureWorks PowerBI</h1>
+						<iframe title="AdventureWorks" width="1024" height="804"
+							src="https://app.powerbi.com/view?r=eyJrIjoiMzUyMjdjMTUtNzg1Yy00NTdkLWJhOTYtYmY0ZGY0NjFiMDFjIiwidCI6ImUyZjc3ZDAwLTAxNjMtNGNmNi05MmIwLTQ4NGJhZmY5ZGY3ZCJ9"
+							frameborder="0" allowFullScreen="true"></iframe>
+						<br />
+						<hr class="major" />
+
+						<!-- <img src="images/adventureworks//AdventureWorks_page-0001.jpg">  -->
+
+						<header class="major">
+							<h2>1. Visão Geral</h2>
+						</header>
+
+						<p>Link para o Painel Online: <a
+								href="https://app.powerbi.com/view?r=eyJrIjoiMzUyMjdjMTUtNzg1Yy00NTdkLWJhOTYtYmY0ZGY0NjFiMDFjIiwidCI6ImUyZjc3ZDAwLTAxNjMtNGNmNi05MmIwLTQ4NGJhZmY5ZGY3ZCJ9"
+								target="_blank">Visão Geral de Vendas</a></p>
+						<p>O objetivo principal deste projeto é criar e publicar um painel interativo do Power BI
+							utilizando o conjunto de dados Adventure Works. Esse conjunto de dados, fornecido pela
+							Microsoft, serve como um excelente ambiente de prática para demonstrar habilidades em
+							SQL,
+							Microsoft SQL Server e Power BI.</p>
+						<p>Os dados podem ser encontrados no link: <a
+								href="https://learn.microsoft.com/en-us/sql/samples/adventureworks-install-configure?view=sql-server-ver15&tabs=ssms"
+								target="_blank">Bancos de Dados de Exemplo AdventureWorks - SQL Server | Microsoft
+								Learn</a></p>
+
+						<h3>1.1 Objetivos</h3>
+						<ol>
+							<li><strong>Demonstração de Habilidades:</strong> Ao longo deste projeto, pretendemos
+								demonstrar nossa expertise em SQL, Microsoft SQL Server e Power BI, transformando
+								dados
+								brutos em visualizações acionáveis.</li>
+							<li><strong>Painel Interativo:</strong> Nosso foco é construir um painel interativo e
+								amigável que permita a exploração fácil do conjunto de dados Adventure Works.</li>
+							<li><strong>Visualização de Dados:</strong> Aproveitando as capacidades do Power BI,
+								criaremos visualizações impactantes para revelar padrões, tendências e informações
+								comerciais cruciais.</li>
+						</ol>
+
+						<h3>1.2 Estrutura do Projeto</h3>
+						<p>O projeto está organizado em etapas distintas:</p>
+						<ol>
+							<li><strong>Extração e Limpeza de Dados:</strong> Começaremos obtendo o conjunto de
+								dados
+								Adventure Works e realizando sua limpeza usando SQL no Microsoft SQL Server
+								Management
+								Studio (SSMS).</li>
+							<li><strong>Importar Dados no Power BI:</strong> Em seguida, importaremos o conjunto de
+								dados limpo no Power BI para análise.</li>
+							<li><strong>Enriquecimento de Dados com Web Scraping:</strong> Aprimoraremos o conjunto
+								de
+								dados adicionando informações de continentes usando web scraping e junção de
+								consultas.
+							</li>
+							<li><strong>Modelagem de Dados:</strong> Nesta etapa, organizaremos e estruturaremos o
+								modelo de dados no Power BI para obter melhores insights.</li>
+							<li><strong>Criação de Visualizações:</strong> A etapa final envolve a criação de
+								gráficos e
+								tabelas interativas para apresentar resultados-chave.</li>
+						</ol>
+						<header class="major">
+							<h2>2. Extração e Limpeza de Dados no SSMS com SQL</h2>
+						</header>
+						<p>O primeiro passo é fazer o download e atualizar os dados usando o código SQL fornecido
+							pela
+							Microsoft neste <a
+								href="https://github.com/techtalkcorner/SampleDemoFiles/blob/master/Database/AdventureWorks/Update_AdventureWorksDW_Data.sql"
+								target="_blank">Repositório no Github</a>.</p>
+						<p>Após o download do arquivo de backup (.bak), restaure o banco de dados no <em>Microsoft
+								SQL
+								Server Management Studio (SSMS)</em> e faça a atualização. Podemos ver todas as
+							tabelas
+							disponíveis para nossa análise:</p>
+
+						<span class="image object">
+							<img src="images/adventureworks//tables.png" alt="tabelas">
+						</span>
+						<p>Também devemos verificar se a atualização foi bem-sucedida consultando os anos em uma das
+							tabelas. Notei que as vendas parecem ter sido atualizadas, embora os anos da tabela
+							"Dimension Date" não tenham sido.</p>
+						<p>Por isso, criei uma nova tabela de datas com o código SQL, que cria as colunas DateKey
+							(para
+							vincular a tabela com as outras) e FullDate. O restante das colunas, como Dia, Mês, Ano,
+							etc., pode ser facilmente extraído dessas colunas no Power BI.</p>
+
+						<pre><code>
+CREATE TABLE DimDateNew (
+  DateKey INT PRIMARY KEY, FullDateAlternateKey DATE
+);
+DECLARE @StartDate DATE = '2019-01-01';
+DECLARE @EndDate DATE = '2023-12-31';
+DECLARE @CurrentDate DATE = @StartDate;
+DECLARE @DateKey INT = YEAR(@StartDate) * 10000 + MONTH(@StartDate) * 100 + DAY(@StartDate);
+WHILE @CurrentDate <= @EndDate BEGIN INSERT INTO DimDateNew (DateKey, FullDateAlternateKey) 
+VALUES 
+  (@DateKey, @CurrentDate);
+SET 
+  @CurrentDate = DATEADD(DAY, 1, @CurrentDate);
+SET 
+  @DateKey = YEAR(@CurrentDate) * 10000 + MONTH(@CurrentDate) * 100 + DAY(@CurrentDate);
+END;
+
+						</code></pre>
+
+						<p>Agora organizamos as tabelas de dimensões e fatos que precisamos e criamos as
+							visualizações
+							para elas. Também é possível fazer o download do arquivo CSV e carregá-lo no Power BI.
+							Porém, prefiro criar as visualizações, pois o PBI também pode se conectar ao banco de
+							dados
+							e carregar apenas as visualizações. Dessa forma, caso seja necessário adicionar uma
+							coluna
+							em alguma tabela, basta alterar o código SQL e, após a execução, o Power BI atualizará
+							os
+							dados, sem a necessidade de salvar e carregar outro arquivo CSV.</p>
+
+						<pre><code>
+--------------------------------
+----Criating Fact Sales View----
+--------------------------------
+CREATE VIEW fSales AS 
+SELECT 
+  fis.[ProductKey], 
+  fis.[OrderDateKey], 
+  fis.[DueDateKey], 
+  fis.[ShipDateKey], 
+  fis.[CustomerKey], 
+  dg.[EnglishCountryRegionName] AS StoreCountry, 
+  -- Country of the store where the product was bought
+  fis.[SalesOrderNumber], 
+  fis.[SalesAmount] 
+FROM 
+  FactInternetSales fis 
+  JOIN DimCustomer dc ON fis.CustomerKey = dc.CustomerKey 
+  JOIN DimGeography dg ON fis.[SalesTerritoryKey] = dg.[SalesTerritoryKey] 
+WHERE 
+  fis.OrderDateKey BETWEEN '20200101' 
+  AND '20221212';
+
+---------------------------------------
+----Criating dimension Product View----
+---------------------------------------
+CREATE VIEW dProduct as 
+SELECT 
+  p.[ProductKey], 
+  p.[ProductAlternateKey] AS ProductItemCode, 
+  p.[EnglishProductName] AS [Product Name], 
+  ps.EnglishProductSubcategoryName AS [Sub Category], 
+  -- Joined in from Sub Category Table
+  pc.EnglishProductCategoryName AS [Product Category], 
+  -- Joined in from Category Table
+  p.[Color] AS [Product Color], 
+  p.[Size] AS [Product Size], 
+  p.[ProductLine] AS [Product Line], 
+  p.[ModelName] AS [Product Model Name], 
+  p.[EnglishDescription] AS [Product Description], 
+  ISNULL (p.Status, 'Outdated') AS [Product Status] --Changed Status from Null to 'OutDated' 
+FROM 
+  DimProduct as p 
+  LEFT JOIN dbo.DimProductSubcategory AS ps ON ps.ProductSubcategoryKey = p.ProductSubcategoryKey 
+  LEFT JOIN dbo.DimProductCategory AS pc ON ps.ProductCategoryKey = pc.ProductCategoryKey 
+  
+  ----------------------------------------
+  ----Criating dimension Customer View----
+  ----------------------------------------
+  CREATE VIEW dCustomer as 
+SELECT 
+  c.customerkey AS CustomerKey, 
+  c.firstname AS [First Name], 
+  c.lastname AS [Last Name], 
+  c.firstname + ' ' + lastname AS [Full Name], 
+  CASE c.gender WHEN 'M' THEN 'Male' WHEN 'F' THEN 'Female' END AS Gender, 
+  c.datefirstpurchase AS DateFirstPurchase, 
+  g.city AS [City], 
+  -- Joined in Customer City from Geography Table
+  g.EnglishCountryRegionName as [Country], 
+  -- Joined in Country from Geography Table
+  g.StateProvinceCode as [State] -- Joined in State from Geography Table
+FROM 
+  DimCustomer as c 
+  LEFT JOIN dbo.dimgeography AS g ON g.geographykey = c.geographykey 
+  
+  ----------------------------------------
+  ----Criating dimension Calendar View----
+  ----------------------------------------
+  CREATE VIEW dCalendar AS 
+SELECT 
+  * 
+FROM 
+  DimDateNew 
+WHERE 
+  DateKey BETWEEN '20200101' 
+  AND '20221212'
+
+</code></pre>
+
+						<p>Após isso, podemos ver que as visualizações foram criadas na guia "View":</p>
+
+						<span class="image object">
+							<img src="images/adventureworks//views.png" alt="visualizações">
+						</span>
+						<header class="major">
+							<h2>4. Importar Dados no Power BI</h2>
+						</header>
+						<p>Agora que temos nossos dados, podemos conectar o servidor SQL no Power BI:</p>
+
+						<span class="image object center">
+							<img src="images/adventureworks//localhost-print.png" alt="localhost print" width="400"
+								height="300">
+						</span>
+
+						<p>E, em seguida, selecionamos as visualizações que criamos:</p>
+
+						<span class="image fit">
+							<img src="images/adventureworks//load-views.png" alt="carregar visualizações" width="800"
+								height="600">
+						</span>
+
+						<h3>4.1 Adicionando a coluna de continente</h3>
+
+						<p>Considerando os negócios globais da Adventure Works, decidimos incluir um gráfico de
+							Vendas
+							por Continente no painel. No entanto, a tabela de dimensão "Geografia" inicialmente não
+							possuía uma coluna de continente. Para realizar isso, basta procurar uma lista de países
+							e
+							seus continentes na web.</p>
+						<p>Em vez de baixar e criar uma nova tabela, no Editor de Consultas do Power BI, clique em
+							"Nova
+							Fonte" &gt; "Web" e cole o link do <a
+								href="https://statisticstimes.com/geography/countries-by-continents.php"
+								target="_blank">site com os países e continentes</a>.</p>
+
+						<span class="image fit">
+							<img src="images/adventureworks//get-data-web.png" alt="obter dados da web">
+						</span>
+
+						<p>O Power BI encontrará algumas tabelas no site e selecionaremos aquela que estamos
+							procurando:
+						</p>
+
+						<span class="image fit">
+							<img src="images/adventureworks//web-import.png" alt="carregar visualizações">
+						</span>
+
+						<p>Após carregar a tabela no Editor de Consultas, podemos fazer um "Merge de Consultas" com
+							a
+							tabela dcustomer pelo país e adicionar a coluna de continente a ela.</p>
+
+						<span class="image fit">
+							<img src="images/adventureworks//merge-queries.png" alt="combinar consultas">
+						</span>
+
+						<header class="major">
+							<h2>5. Modelo de Dados</h2>
+						</header>
+						<p>Agora podemos vincular todas as tabelas e implementar um modelo Star Schema, que permite
+							que
+							as dimensões atuem como filtros para análise.</p>
+						<p>Observe que todas as dimensões estão vinculadas à tabela de fatos em um relacionamento 1
+							para
+							muitos:</p>
+
+						<span class="image fit">
+							<img src="images/adventureworks//data-model.png" alt="modelo de dados">
+						</span>
+						<header class="major">
+							<h2>6. Visualização de Dados</h2>
+						</header>
+
+						<p>Nesta seção, vou descrever o layout do painel hospedado no servidor da Microsoft, que
+							pode
+							ser acessado por este link: <a
+								href="https://app.powerbi.com/view?r=eyJrIjoiMzUyMjdjMTUtNzg1Yy00NTdkLWJhOTYtYmY0ZGY0NjFiMDFjIiwidCI6ImUyZjc3ZDAwLTAxNjMtNGNmNi05MmIwLTQ4NGJhZmY5ZGY3ZCJ9"
+								target="_blank">Visão Geral de Vendas</a></p>
+
+						<span class="image fit">
+							<img src="images/adventureworks//PWBI-print.png" alt="print do Power BI">
+						</span>
+
+						<h3>6.1 KPI Tooltip:</h3>
+						<p>No gráfico de Linha Orçamento x Vendas ao longo do tempo, temos um KPI Tooltip, quando
+							passamos o mouse sobre ele, podemos ver detalhes dinâmicos do Orçamento e Vendas naquele
+							mês
+							específico.</p>
+						<span class="image fit">
+
+							<img src="images/adventureworks//line-chart.png" alt="gráfico de linha">
+						</span>
+
+						<p>Para fazer isso, é necessário baixar o <strong>Dynamic KPI Card by Sereviso</strong> nas
+							opções "obter mais visões":</p>
+						<span class="image fit">
+
+							<img src="images/adventureworks//dynamic-kpi.png" alt="KPI dinâmico">
+						</span>
+
+					</body>
+
+					<hr class="major" />
+					<p>Obrigado por ler o meu projeto! <br />
+						Caso tenha alguma dúvida ou sugestão, sinta-se a vontade para entrar em contato.<br />
+						Clique abaixo para voltar à pagina principal.</p>
+					<ul class="actions">
+						<li><a href="index.html" class="button primary icon solid fa-file-alt">Portfolio</a></li>
+					</ul>
+
+					<hr class="major" />
+
+					<ul class="contact">
+						<li class="icon solid fa-envelope">l.eduardo.fe@gmail.com</li>
+						<li class="icon brands fa-linkedin"><a
+								href="https://www.linkedin.com/in/luis-eduardo-esteves-039619167/">LinkedIn </a></li>
+						<li class="icon brands fa-github"><a href="https://github.com/LuisEduardoEsteves">GitHub </a>
+						</li>
+					</ul>
+				</section>
+			</div>
+
+		</div>
+	</div>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

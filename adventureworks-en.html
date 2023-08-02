@@ -1,0 +1,348 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+	<title>AdventureWorks</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+</head>
+
+<body class="is-preload">
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+		<!DOCTYPE html>
+		<html lang="en">
+
+		<body>
+			<div id="main">
+				<div class="inner">
+
+					<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">◀ Back to Portfolio</a>
+
+						<ul class="icons">
+							<li><img src="images/usa_select.png" alt="en-us" title="EN-US"></a></li>
+							<li><a href="adventureworks-pt.html" class="icon"><img src="images/br.png" alt="pt-br" title="PT-BR"></a>
+							</li>
+						</ul>
+					</header>
+
+					<!-- Content -->
+					<section>
+						<header>
+							<h1>Dashboard AdventureWorks PowerBI</h1>
+						</header>
+
+						<iframe title="AdventureWorks" width="1024" height="612"
+							src="https://app.powerbi.com/view?r=eyJrIjoiMzUyMjdjMTUtNzg1Yy00NTdkLWJhOTYtYmY0ZGY0NjFiMDFjIiwidCI6ImUyZjc3ZDAwLTAxNjMtNGNmNi05MmIwLTQ4NGJhZmY5ZGY3ZCJ9"
+							frameborder="0" allowFullScreen="true"></iframe>
+						<br />
+
+						<header class="major">
+							<h2>1. Overview</h2>
+						</header>
+
+						<p>Link to Online Dashboard: <a
+								href="https://app.powerbi.com/view?r=eyJrIjoiMzUyMjdjMTUtNzg1Yy00NTdkLWJhOTYtYmY0ZGY0NjFiMDFjIiwidCI6ImUyZjc3ZDAwLTAxNjMtNGNmNi05MmIwLTQ4NGJhZmY5ZGY3ZCJ9"
+								target="_blank">Sales Overview</a></p>
+						<p>The main objective of this project is to create and publish an interactive Power BI dashboard
+							using the Adventure Works dataset. This dataset, provided by Microsoft, serves as an
+							excellent practice environment to demonstrate skills in SQL, Microsoft SQL Server, and Power
+							BI.</p>
+						<p>The data can be found at: <a
+								href="https://learn.microsoft.com/en-us/sql/samples/adventureworks-install-configure?view=sql-server-ver15&tabs=ssms"
+								target="_blank">AdventureWorks Sample Databases - SQL Server | Microsoft Learn</a></p>
+
+						<h3>1.1 Objectives</h3>
+						<ol>
+							<li><strong>Demonstration of Skills:</strong> Throughout this project, we intend to
+								demonstrate our expertise in SQL, Microsoft SQL Server, and Power BI by transforming raw
+								data into actionable visualizations.</li>
+							<li><strong>Interactive Dashboard:</strong> Our focus is to build an interactive and
+								user-friendly dashboard that allows easy exploration of the Adventure Works dataset.
+							</li>
+							<li><strong>Data Visualization:</strong> Leveraging the capabilities of Power BI, we will
+								create impactful visualizations to reveal patterns, trends, and crucial business
+								insights.</li>
+						</ol>
+
+						<h3>1.2 Project Structure</h3>
+						<p>The project is organized into distinct stages:</p>
+						<ol>
+							<li><strong>Data Extraction and Cleansing:</strong> We will start by obtaining the Adventure
+								Works dataset and performing data cleansing using SQL in Microsoft SQL Server Management
+								Studio (SSMS).</li>
+							<li><strong>Import Data into Power BI:</strong> Next, we will import the cleaned dataset
+								into Power BI for analysis.</li>
+							<li><strong>Data Enrichment with Web Scraping:</strong> We will enhance the dataset by
+								adding continent information using web scraping and query merging.</li>
+							<li><strong>Data Modeling:</strong> In this stage, we will organize and structure the data
+								model in Power BI to gain better insights.</li>
+							<li><strong>Creating Visualizations:</strong> The final stage involves creating interactive
+								charts and tables to present key findings.</li>
+						</ol>
+
+						<header class="major">
+							<h2>2. Data Extraction and Cleansing in SSMS with SQL</h2>
+						</header>
+
+						<p>The first step is to download and update the data using the SQL code provided by Microsoft in
+							this <a
+								href="https://github.com/techtalkcorner/SampleDemoFiles/blob/master/Database/AdventureWorks/Update_AdventureWorksDW_Data.sql"
+								target="_blank">GitHub Repository</a>.</p>
+						<p>After downloading the backup file (.bak), restore the database in the <em>Microsoft SQL
+								Server Management Studio (SSMS)</em> and perform the update. We can see all available
+							tables for our analysis:</p>
+
+						<span class="image object">
+							<img src="images/adventureworks//tables.png" alt="tables">
+						</span>
+
+						<p>We should also check if the update was successful by querying the years in one of the tables.
+							I noticed that the sales seem to have been updated, although the years in the "Dimension
+							Date" table have not been updated.</p>
+						<p>Therefore, I created a new date table with the SQL code, which creates the DateKey column (to
+							link the table with others) and FullDate. The rest of the columns like Day, Month, Year,
+							etc., can be easily extracted from these columns in Power BI.</p>
+
+						<pre><code>
+CREATE TABLE DimDateNew (
+  DateKey INT PRIMARY KEY, FullDateAlternateKey DATE
+);
+DECLARE @StartDate DATE = '2019-01-01';
+DECLARE @EndDate DATE = '2023-12-31';
+DECLARE @CurrentDate DATE = @StartDate;
+DECLARE @DateKey INT = YEAR(@StartDate) * 10000 + MONTH(@StartDate) * 100 + DAY(@StartDate);
+WHILE @CurrentDate <= @EndDate BEGIN INSERT INTO DimDateNew (DateKey, FullDateAlternateKey) 
+VALUES 
+  (@DateKey, @CurrentDate);
+SET 
+  @CurrentDate = DATEADD(DAY, 1, @CurrentDate);
+SET 
+  @DateKey = YEAR(@CurrentDate) * 10000 + MONTH(@CurrentDate) * 100 + DAY(@CurrentDate);
+END;
+
+                </code></pre>
+
+						<p>Now, we organize the dimensions and facts tables we need and create the views for them. It is
+							also possible to download the CSV file and load it into Power BI. However, I prefer to
+							create views, as PBI can also connect to the database and load only the views. This way, if
+							we need to add a column to any table, we just change the SQL code, and after execution,
+							Power BI will update the data, without the need to save and load another CSV file.</p>
+
+						<pre><code>
+--------------------------------
+----Creating Fact Sales View----
+--------------------------------
+CREATE VIEW fSales AS 
+SELECT 
+  fis.[ProductKey], 
+  fis.[OrderDateKey], 
+  fis.[DueDateKey], 
+  fis.[ShipDateKey], 
+  fis.[CustomerKey], 
+  dg.[EnglishCountryRegionName] AS StoreCountry, 
+  -- Country of the store where the product was bought
+  fis.[SalesOrderNumber], 
+  fis.[SalesAmount] 
+FROM 
+  FactInternetSales fis 
+  JOIN DimCustomer dc ON fis.CustomerKey = dc.CustomerKey 
+  JOIN DimGeography dg ON fis.[SalesTerritoryKey] = dg.[SalesTerritoryKey] 
+WHERE 
+  fis.OrderDateKey BETWEEN '20200101' 
+  AND '20221212';
+
+---------------------------------------
+----Creating dimension Product View----
+---------------------------------------
+CREATE VIEW dProduct as 
+SELECT 
+  p.[ProductKey], 
+  p.[ProductAlternateKey] AS ProductItemCode, 
+  p.[EnglishProductName] AS [Product Name], 
+  ps.EnglishProductSubcategoryName AS [Sub Category], 
+  -- Joined in from Sub Category Table
+  pc.EnglishProductCategoryName AS [Product Category], 
+  -- Joined in from Category Table
+  p.[Color] AS [Product Color], 
+  p.[Size] AS [Product Size], 
+  p.[ProductLine] AS [Product Line], 
+  p.[ModelName] AS [Product Model Name], 
+  p.[EnglishDescription] AS [Product Description], 
+  ISNULL (p.Status, 'Outdated') AS [Product Status] --Changed Status from Null to 'OutDated' 
+FROM 
+  DimProduct as p 
+  LEFT JOIN dbo.DimProductSubcategory AS ps ON ps.ProductSubcategoryKey = p.ProductSubcategoryKey 
+  LEFT JOIN dbo.DimProductCategory AS pc ON ps.ProductCategoryKey = pc.ProductCategoryKey 
+  
+  ----------------------------------------
+  ----Creating dimension Customer View----
+  ----------------------------------------
+  CREATE VIEW dCustomer as 
+SELECT 
+  c.customerkey AS CustomerKey, 
+  c.firstname AS [First Name], 
+  c.lastname AS [Last Name], 
+  c.firstname + ' ' + lastname AS [Full Name], 
+  CASE c.gender WHEN 'M' THEN 'Male' WHEN 'F' THEN 'Female' END AS Gender, 
+  c.datefirstpurchase AS DateFirstPurchase, 
+  g.city AS [City], 
+  -- Joined in Customer City from Geography Table
+  g.EnglishCountryRegionName as [Country], 
+  -- Joined in Country from Geography Table
+  g.StateProvinceCode as [State] -- Joined in State from Geography Table
+FROM 
+  DimCustomer as c 
+  LEFT JOIN dbo.dimgeography AS g ON g.geographykey = c.geographykey 
+  
+  ----------------------------------------
+  ----Creating dimension Calendar View----
+  ----------------------------------------
+  CREATE VIEW dCalendar AS 
+SELECT 
+  * 
+FROM 
+  DimDateNew 
+WHERE 
+  DateKey BETWEEN '20200101' 
+  AND '20221212'
+
+                </code></pre>
+
+						<p>After this, we can see that the views have been created in the "View" tab:</p>
+
+						<span class="image object">
+							<img src="images/adventureworks//views.png" alt="views">
+						</span>
+
+						<header class="major">
+							<h2>4. Import Data into Power BI</h2>
+						</header>
+
+						<p>Now that we have our data, we can connect to the SQL server in Power BI:</p>
+
+						<span class="image object center">
+							<img src="images/adventureworks//localhost-print.png" alt="localhost print" width="400"
+								height="300">
+						</span>
+
+						<p>And then, we select the views we created:</p>
+
+						<span class="image fit">
+							<img src="images/adventureworks//load-views.png" alt="load views" width="800" height="600">
+						</span>
+
+						<h3>4.1 Adding the Continent Column</h3>
+
+						<p>Considering Adventure Works' global business, we decided to include a Sales by Continent
+							chart in the dashboard. However, the initial "Geography" dimension table did not have a
+							continent column. To achieve this, simply search for a list of countries and their
+							continents on the web.</p>
+						<p>Instead of downloading and creating a new table, in the Power BI Query Editor, click on "New
+							Source" > "Web" and paste the link to the <a
+								href="https://statisticstimes.com/geography/countries-by-continents.php"
+								target="_blank">site with countries and continents</a>.</p>
+
+						<span class="image fit">
+							<img src="images/adventureworks//get-data-web.png" alt="get data from web">
+						</span>
+
+						<p>Power BI will find some tables on the site, and we'll select the one we're looking for:</p>
+
+						<span class="image fit">
+							<img src="images/adventureworks//web-import.png" alt="load views">
+						</span>
+
+						<p>After loading the table in the Query Editor, we can perform a "Merge Queries" with the
+							dCustomer table by country and add the continent column to it.</p>
+
+						<span class="image fit">
+							<img src="images/adventureworks//merge-queries.png" alt="combine queries">
+						</span>
+
+						<header class="major">
+							<h2>5. Data Model</h2>
+						</header>
+
+						<p>Now we can link all the tables and implement a Star Schema model, allowing the dimensions to
+							act as filters for analysis.</p>
+						<p>Note that all dimensions are linked to the facts table in a one-to-many relationship:</p>
+
+						<span class="image fit">
+							<img src="images/adventureworks//data-model.png" alt="data model">
+						</span>
+
+						<header class="major">
+							<h2>6. Data Visualization</h2>
+						</header>
+
+						<p>In this section, I will describe the layout of the dashboard hosted on the Microsoft server,
+							which can be accessed via this link: <a
+								href="https://app.powerbi.com/view?r=eyJrIjoiMzUyMjdjMTUtNzg1Yy00NTdkLWJhOTYtYmY0ZGY0NjFiMDFjIiwidCI6ImUyZjc3ZDAwLTAxNjMtNGNmNi05MmIwLTQ4NGJhZmY5ZGY3ZCJ9"
+								target="_blank">Sales Overview</a></p>
+
+						<span class="image fit">
+							<img src="images/adventureworks//PWBI-print.png" alt="Power BI print">
+						</span>
+
+						<h3>6.1 KPI Tooltip:</h3>
+						<p>In the Budget vs. Sales over Time line chart, we have a KPI Tooltip, and when we hover over
+							it, we can see dynamic details of the Budget and Sales for that specific month.</p>
+						<span class="image fit">
+
+							<img src="images/adventureworks//line-chart.png" alt="line chart">
+						</span>
+
+						<p>To do this, you need to download the <strong>Dynamic KPI Card by Sereviso</strong> under the
+							"Get More Visuals" options:</p>
+						<span class="image fit">
+
+							<img src="images/adventureworks//dynamic-kpi.png" alt="dynamic KPI">
+						</span>
+					</section>
+					<hr class="major" />
+
+					<p>Thank you for reading my project <br />
+						If you have any questions or suggestion, feel free to get in touch.<br />
+						Click below to return to the main page.</p>
+					<ul class="actions">
+						<li><a href="index.html" class="button primary icon solid fa-file-alt">Portfolio</a></li>
+					</ul>
+
+					<hr class="major" />
+
+					<ul class="contact">
+						<li class="icon solid fa-envelope">l.eduardo.fe@gmail.com</li>
+						<li class="icon brands fa-linkedin"><a
+								href="https://www.linkedin.com/in/luis-eduardo-esteves-039619167/">LinkedIn </a></li>
+						<li class="icon brands fa-github"><a href="https://github.com/LuisEduardoEsteves">GitHub </a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+		</body>
+
+		</html>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
