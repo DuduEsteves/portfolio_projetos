@@ -87,7 +87,7 @@
 							<li><strong>Data Modeling:</strong> In this stage, we will organize and structure the data
 								model in Power BI to gain better insights.</li>
 							<li><strong>Creating Visualizations:</strong> The final stage involves creating interactive
-								charts and tables to present key findings.</li>
+								charts andles to present key findings.</li>
 						</ol>
 
 						<header class="major">
@@ -106,15 +106,15 @@
 							<img src="images/adventureworks//tables.png" alt="tables">
 						</span>
 
-						<p>We should also check if the update was successful by querying the years in one of the tables.
+						<p>We should also check if the update was successful by querying the years in one of theles.
 							I noticed that the sales seem to have been updated, although the years in the "Dimension
-							Date" table have not been updated.</p>
-						<p>Therefore, I created a new date table with the SQL code, which creates the DateKey column (to
-							link the table with others) and FullDate. The rest of the columns like Day, Month, Year,
+							Date"le have not been updated.</p>
+						<p>Therefore, I created a new datele with the SQL code, which creates the DateKey column (to
+							link thele with others) and FullDate. The rest of the columns like Day, Month, Year,
 							etc., can be easily extracted from these columns in Power BI.</p>
 
 						<pre><code>
-CREATE TABLE DimDateNew (
+CREATELE DimDateNew (
   DateKey INT PRIMARY KEY, FullDateAlternateKey DATE
 );
 DECLARE @StartDate DATE = '2019-01-01';
@@ -132,10 +132,10 @@ END;
 
                 </code></pre>
 
-						<p>Now, we organize the dimensions and facts tables we need and create the views for them. It is
+						<p>Now, we organize the dimensions and factsles we need and create the views for them. It is
 							also possible to download the CSV file and load it into Power BI. However, I prefer to
 							create views, as PBI can also connect to the database and load only the views. This way, if
-							we need to add a column to any table, we just change the SQL code, and after execution,
+							we need to add a column to anyle, we just change the SQL code, and after execution,
 							Power BI will update the data, without the need to save and load another CSV file.</p>
 
 						<pre><code>
@@ -170,9 +170,9 @@ SELECT
   p.[ProductAlternateKey] AS ProductItemCode, 
   p.[EnglishProductName] AS [Product Name], 
   ps.EnglishProductSubcategoryName AS [Sub Category], 
-  -- Joined in from Sub Category Table
+  -- Joined in from Sub Categoryle
   pc.EnglishProductCategoryName AS [Product Category], 
-  -- Joined in from Category Table
+  -- Joined in from Categoryle
   p.[Color] AS [Product Color], 
   p.[Size] AS [Product Size], 
   p.[ProductLine] AS [Product Line], 
@@ -196,10 +196,10 @@ SELECT
   CASE c.gender WHEN 'M' THEN 'Male' WHEN 'F' THEN 'Female' END AS Gender, 
   c.datefirstpurchase AS DateFirstPurchase, 
   g.city AS [City], 
-  -- Joined in Customer City from Geography Table
+  -- Joined in Customer City from Geographyle
   g.EnglishCountryRegionName as [Country], 
-  -- Joined in Country from Geography Table
-  g.StateProvinceCode as [State] -- Joined in State from Geography Table
+  -- Joined in Country from Geographyle
+  g.StateProvinceCode as [State] -- Joined in State from Geographyle
 FROM 
   DimCustomer as c 
   LEFT JOIN dbo.dimgeography AS g ON g.geographykey = c.geographykey 
@@ -218,7 +218,7 @@ WHERE
 
                 </code></pre>
 
-						<p>After this, we can see that the views have been created in the "View" tab:</p>
+						<p>After this, we can see that the views have been created in the "View":</p>
 
 						<span class="image object">
 							<img src="images/adventureworks//views.png" alt="views">
@@ -244,10 +244,10 @@ WHERE
 						<h3>4.1 Adding the Continent Column</h3>
 
 						<p>Considering Adventure Works' global business, we decided to include a Sales by Continent
-							chart in the dashboard. However, the initial "Geography" dimension table did not have a
+							chart in the dashboard. However, the initial "Geography" dimensionle did not have a
 							continent column. To achieve this, simply search for a list of countries and their
 							continents on the web.</p>
-						<p>Instead of downloading and creating a new table, in the Power BI Query Editor, click on "New
+						<p>Instead of downloading and creating a newle, in the Power BI Query Editor, click on "New
 							Source" > "Web" and paste the link to the <a
 								href="https://statisticstimes.com/geography/countries-by-continents.php"
 								target="_blank">site with countries and continents</a>.</p>
@@ -256,14 +256,14 @@ WHERE
 							<img src="images/adventureworks//get-data-web.png" alt="get data from web">
 						</span>
 
-						<p>Power BI will find some tables on the site, and we'll select the one we're looking for:</p>
+						<p>Power BI will find someles on the site, and we'll select the one we're looking for:</p>
 
 						<span class="image fit">
 							<img src="images/adventureworks//web-import.png" alt="load views">
 						</span>
 
-						<p>After loading the table in the Query Editor, we can perform a "Merge Queries" with the
-							dCustomer table by country and add the continent column to it.</p>
+						<p>After loading thele in the Query Editor, we can perform a "Merge Queries" with the
+							dCustomerle by country and add the continent column to it.</p>
 
 						<span class="image fit">
 							<img src="images/adventureworks//merge-queries.png" alt="combine queries">
@@ -273,9 +273,9 @@ WHERE
 							<h2>5. Data Model</h2>
 						</header>
 
-						<p>Now we can link all the tables and implement a Star Schema model, allowing the dimensions to
+						<p>Now we can link all theles and implement a Star Schema model, allowing the dimensions to
 							act as filters for analysis.</p>
-						<p>Note that all dimensions are linked to the facts table in a one-to-many relationship:</p>
+						<p>Note that all dimensions are linked to the factsle in a one-to-many relationship:</p>
 
 						<span class="image fit">
 							<img src="images/adventureworks//data-model.png" alt="data model">
@@ -308,6 +308,23 @@ WHERE
 
 							<img src="images/adventureworks//dynamic-kpi.png" alt="dynamic KPI">
 						</span>
+
+						    <!-- Next Steps Topics -->
+    <header class="major">
+        <h2>Next Steps</h2>
+    </header>
+    <ul>
+        <li><strong>HR Analysis:</strong> Explore the distribution of employees by department, job title, and location. Analyze employee tenure and performance metrics.</li>
+        <li><strong>Customers:</strong> Analyze customer behavior, segmentation, loyalty, and churn rate to improve customer satisfaction and retention.</li>
+        <li><strong>Profit Analysis:</strong> Visualize profit margins, cost analysis, and profit by product category to optimize profitability.</li>
+        <li><strong>Sales Forecasting:</strong> Explore sales trends, create forecasting models, and analyze the sales pipeline for better planning.</li>
+        <li><strong>Inventory Management:</strong> Optimize inventory management by visualizing inventory turnover, stockout analysis, and implementing ABC analysis.</li>
+        <li><strong>Marketing and Campaigns:</strong> Measure the effectiveness of marketing campaigns, track customer responses, and analyze marketing ROI.</li>
+    </ul>
+</body>
+
+</html>
+
 					</section>
 					<hr class="major" />
 
